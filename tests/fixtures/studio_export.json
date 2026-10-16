@@ -1,0 +1,16 @@
+{
+  "schema": "retrophora.draft-0.1",
+  "id": "premiere_victoire",
+  "title": "Première victoire",
+  "points": 10,
+  "conditions": {
+    "all": [
+      {
+        "address": "0xC120",
+        "width": 8,
+        "operator": "changed_to",
+        "value": 1
+      }
+    ]
+  }
+}
