@@ -3,7 +3,17 @@ export function createDraft({id, title, address, value, operator, points}) {
   id = String(id ?? "").trim();
   title = String(title ?? "").trim();
   if (!/^[a-z][a-z0-9_]{2,63}$/.test(id)) throw new Error("Identifiant invalide : 3–64 caractères minuscules, chiffres ou _ ; commence par une lettre.");
-  if (title.length < 1 || title.length > 100) throw new Error("Le titre doit contenir 1 à 100 caractères.");
+  if (/[\u0000-\u001f\u007f]/.test(title)) throw new Error("Le titre contient des caractères de contrôle.");
+  if (Array.from(title).length < 1 || Array.from(title).length > 100) throw new Error("Le titre doit contenir 1 à 100 caractères.");
+  for (let i = 0; i < title.length; i++) {
+    const c = title.charCodeAt(i);
+    if (c >= 0xD800 && c <= 0xDBFF) {
+      const d = title.charCodeAt(++i);
+      if (!(d >= 0xDC00 && d <= 0xDFFF)) throw new Error("Caractère Unicode invalide dans le titre.");
+    } else if (c >= 0xDC00 && c <= 0xDFFF) {
+      throw new Error("Caractère Unicode invalide dans le titre.");
+    }
+  }
   const addr = String(address ?? "").trim();
   if (!/^0x[0-9a-f]{1,8}$/i.test(addr)) throw new Error("Adresse hexadécimale attendue, exemple 0xC120.");
   const checkedInteger = (input, min, max, field) => {
