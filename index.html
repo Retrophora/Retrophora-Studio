@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="fr">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Retrophora Studio — Brouillons de succès</title><link rel="stylesheet" href="styles.css"></head>
+<body>
+<header><a href="https://github.com/Retrophora/Retrophora">◈ Retrophora</a><span>Studio / Prototype local</span></header>
+<main><div class="lead"><p class="eyebrow">Brouillon de succès · v0.1</p><h1>Créer une condition</h1><p>Définis un succès et exporte son brouillon. Aucune connexion à une ROM ni au moteur Retrophora Engine n'est encore disponible.</p></div>
+<div class="layout">
+<form id="rule-form">
+  <label for="id">Identifiant <small>(lettres minuscules, chiffres, _)</small></label>
+  <input id="id" name="id" required value="premiere_victoire" maxlength="64">
+  <label for="title">Titre</label><input id="title" name="title" required value="Première victoire" maxlength="100">
+  <div class="cols">
+    <div><label for="address">Adresse mémoire</label><input id="address" name="address" required value="0xC120"></div>
+    <div><label for="value">Valeur attendue (0–255)</label><input id="value" name="value" type="number" min="0" max="255" required value="1"></div>
+  </div>
+  <label for="operator">Opérateur</label><select id="operator" name="operator"><option value="changed_to">Devient égal à</option><option value="equal">Est égal à</option></select>
+  <label for="points">Points (0–1000)</label><input id="points" name="points" type="number" min="0" max="1000" required value="10">
+  <button type="submit">Actualiser le brouillon</button>
+  <button id="export" type="button" class="outline">Exporter JSON</button>
+  <p id="error" role="alert" aria-live="polite"></p>
+</form>
+<section><div class="preview-head"><h2>JSON généré</h2><span>Format provisoire</span></div><pre id="preview" aria-live="polite"></pre><p class="note">Les adresses sont liées à un espace mémoire propre à l'émulateur et au jeu ; la valeur affichée est fictive.</p></section>
+</div></main>
+<footer><a href="LICENSE">AGPL-3.0-only</a> · <a href="https://github.com/Retrophora/Retrophora-Studio">Code source ↗</a></footer>
+<script type="module" src="src/app.js"></script></body>
+</html>
